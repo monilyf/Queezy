@@ -9,6 +9,8 @@ export const COLOR = {
   DARK_GRAY: '#686D95',
   DARK_BLACK: '#141414',
   STEEL_BLUE: '#4682B4',
+  ERROR: '#FF0000',
+  SUCCESS: '#008000',
 };
 // const common = {
 //   PRIMARY: PRIMARY,

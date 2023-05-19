@@ -1,12 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Image, StyleSheet, View} from 'react-native';
 import {IMAGES} from '../../utils/images';
 import {ROUTE} from '../../routes/routes';
+import {useSelector} from 'react-redux';
 
 const SplashScreen = ({navigation}) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const {user} = useSelector(state => state.auth);
   // Navigate to authenticated route
   const resetToAuth = CommonActions.reset({
     index: 0,
@@ -19,20 +19,13 @@ const SplashScreen = ({navigation}) => {
     routes: [{name: ROUTE.UNAUTHENTICATED}],
   });
   const setStore = async () => {
-    // try {
-    //   const value = await AsyncStorage.getItem('imageRecords');
-    //   if (value) {
-    //     await AsyncStorage.setItem('imageRecords', value);
-    //   } else {
-    //     await AsyncStorage.setItem('imageRecords', JSON.stringify([]));
-    //   }
-      // navigation.navigate(ROUTE.AUTHENTICATED, {screen: ROUTE.DASHBOARD});
-     setTimeout(() => {
-      navigation.dispatch(resetToUnAuth);
-     }, 2000);
-    // } catch (e) {
-    //   console.log('Error while working with storage - ', e);
-    // }
+    setTimeout(() => {
+      if (user) {
+        navigation.dispatch(resetToAuth);
+      } else {
+        navigation.dispatch(resetToUnAuth);
+      }
+    }, 2000);
   };
   useEffect(() => {
     setStore();
@@ -40,13 +33,11 @@ const SplashScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {isVisible && (
-        <Image
-          source={IMAGES.splash}
-          alt={'splash screen'}
-          style={styles.image}
-        />
-      )}
+      <Image
+        source={IMAGES.splash}
+        alt={'splash screen'}
+        style={styles.image}
+      />
     </View>
   );
 };

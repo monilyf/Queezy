@@ -2,7 +2,6 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -29,19 +28,19 @@ const Welcome = ({navigation}) => {
             style={styles.connectImgStyle}
           />
         </View>
-        <CommonCard>
+        <CommonCard style={{alignItems:'center'}}>
           <Label ph={themeUtils.relativeWidth(1)} large bold align={'center'}>
             Take part in challenges with friends
           </Label>
           <View style={styles.buttonContainer}>
             <CommonButton
               label={'Sign Up'}
-              onPress={() => navigation.navigate(ROUTE.LOGIN)}
+              onPress={() => navigation.navigate(ROUTE.LOGIN,{isSignIn:false})}
               labelColor={COLOR.WHITE}
             />
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate(ROUTE.LOGIN)}
+            onPress={() => navigation.navigate(ROUTE.LOGIN,{isSignIn:true})}
             style={{
               flexDirection: 'row',
               marginTop: themeUtils.relativeHeight(1),
@@ -86,10 +85,6 @@ const styles = StyleSheet.create({
  
   buttonContainer: {
     marginTop: 20,
-
     width: '100%',
-    // position: 'absolute',
-    // zIndex: 1,
-    // bottom: themeUtils.relativeHeight(7),
   },
 });
