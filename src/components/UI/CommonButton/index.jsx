@@ -32,6 +32,7 @@ const CommonButton = props => {
         return (
           <TouchableHighlight
             style={[
+              styles.btn,
               styles.containedContainer,
               {backgroundColor: buttonColor, ...style},
             ]}
@@ -43,6 +44,7 @@ const CommonButton = props => {
         return (
           <TouchableHighlight
             style={[
+              styles.btn,
               styles.outlinedContainer,
               {borderColor: borderColor, ...style},
             ]}
@@ -55,7 +57,7 @@ const CommonButton = props => {
           <Label
             bold
             color={labelColor}
-            style={[styles.buttonLabel,style]}
+            style={[styles.buttonLabel, style]}
             onPress={onPress}>
             {label}
           </Label>
@@ -65,6 +67,7 @@ const CommonButton = props => {
         return (
           <TouchableHighlight
             style={[
+              styles.btn,
               styles.containedContainer,
               {backgroundColor: buttonColor, ...style},
             ]}
@@ -84,6 +87,9 @@ const CommonButton = props => {
 export default CommonButton;
 
 const styles = StyleSheet.create({
+  btn: {
+    paddingHorizontal: themeUtils.relativeWidth(3),
+  },
   containedContainer: {
     alignItems: 'center',
     paddingVertical: themeUtils.relativeHeight(2),

@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {ICONS} from '../../utils/images';
+import {ICONS, IMAGES} from '../../utils/images';
 import themeUtils from '../../utils/theme/themeUtils';
 import {COLOR} from '../../utils/theme/colors';
 import CommonButton from '../../components/UI/CommonButton';
@@ -115,6 +115,13 @@ const Login = ({navigation, route}) => {
         label={isSignIn ? 'Sign In' : 'Sign Up'}
         labelColor={COLOR.WHITE}
         onPress={handleSubmit}
+      />
+      <CommonButton
+        style={{marginTop: 5}}
+        label={'Find Quiz'}
+        labelColor={COLOR.PRIMARY}
+        buttonColor={COLOR.WHITE}
+        icon={IMAGES.logo}
       />
       {isSignIn ? (
         <CommonButton

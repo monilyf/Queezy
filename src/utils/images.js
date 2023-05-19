@@ -4,6 +4,7 @@ export const IMAGES = {
         connect: require('../assets/images/connect.png'),
         logo: require('../assets/images/logo.png'),
         appLogo: require('../assets/images/appLogo.png'),
+        planeBG: require('../assets/images/planeBG1.png'),
 }
 
 export const ICONS = {
@@ -14,4 +15,5 @@ export const ICONS = {
         user: require('../assets/icons/user.png'),
         whiteBackArrow: require('../assets/icons/whiteBackArrow.png'),
         blackBackArrow: require('../assets/icons/blackBackArrow.png'),
+        headphone: require('../assets/icons/headphone.png'),
 }

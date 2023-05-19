@@ -9,7 +9,7 @@ const CommonInput = props => {
     <View style={styles.container}>
       <Label color={labelColor}>{label}</Label>
       <View style={styles.inputContainer}>
-        <Image source={icon} alt={'icon'} style={styles.icon} />
+      {icon &&  <Image source={icon} alt={'icon'} style={styles.icon} />}
         <TextInput style={styles.input} {...rest} />
       </View>
       {error && (

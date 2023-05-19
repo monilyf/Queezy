@@ -8,5 +8,7 @@ export const ROUTE = {
     'SETTINGS':'Settings',
     'DETAILS':'Details',
     'FORGOT_PASSWORD':'ForgotPassword',
-    'RESET_PASSWORD':'ResetPassword'
+    'RESET_PASSWORD':'ResetPassword',
+    'CREATE_QUIZ': 'CreateQuiz',
+    'CHOOSE_CATEGORY':'ChooseCategory'
 }
