@@ -12,7 +12,7 @@ export default CommonCard;
 const styles = StyleSheet.create({
   card: {
     marginHorizontal: themeUtils.relativeWidth(3),
-    marginVertical: themeUtils.relativeWidth(5),
+    marginBottom: themeUtils.relativeWidth(4),
     padding: themeUtils.relativeWidth(4),
     backgroundColor: COLOR.WHITE,
     borderRadius: 20,

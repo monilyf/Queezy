@@ -4,12 +4,12 @@ import Label from '../Label';
 import {COLOR} from '../../../utils/theme/colors';
 import themeUtils from '../../../utils/theme/themeUtils';
 const CommonInput = props => {
-  const {label, icon, labelColor, error, ...rest} = props;
+  const {label, icon, labelColor, error,style, ...rest} = props;
   return (
-    <View style={styles.container}>
-      <Label color={labelColor}>{label}</Label>
+    <View style={[styles.container, styles]}>
+      <Label bold color={labelColor}>{label}</Label>
       <View style={styles.inputContainer}>
-      {icon &&  <Image source={icon} alt={'icon'} style={styles.icon} />}
+      {icon && <View style={styles.iconBox}><Image source={icon} alt={'icon'} style={styles.icon} /></View>}
         <TextInput style={styles.input} {...rest} />
       </View>
       {error && (
@@ -33,16 +33,20 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 20,
     paddingVertical: Platform.OS === 'ios' ? 15 : 5,
-    paddingHorizontal: 15,
+    paddingLeft:  themeUtils.relativeWidth(4),
     flexDirection: 'row',
     alignItems: 'center',
   },
   input: {
     fontSize: 20,
-    paddingHorizontal: themeUtils.relativeWidth(4),
+  },
+  iconBox:{
+    paddingRight: themeUtils.relativeWidth(3),
+    
   },
   icon: {
     height: themeUtils.relativeWidth(6),
     width: themeUtils.relativeWidth(6),
+
   },
 });

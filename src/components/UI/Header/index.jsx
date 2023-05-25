@@ -25,7 +25,7 @@ const Header = ({onBackPress, headerLabel, isDashboard, rightComponent}) => {
           <TouchableOpacity onPress={onBackPress}>
             <Image source={ICONS.whiteBackArrow} style={styles.backArrow} />
           </TouchableOpacity>
-          <Label large bolder color={COLOR.WHITE}>
+          <Label xlarge bolder color={COLOR.WHITE}>
             {headerLabel}
           </Label>
           <View>{rightComponent}</View>
@@ -40,7 +40,6 @@ export default Header;
 const styles = StyleSheet.create({
   headerContainer: {
     marginVertical: themeUtils.relativeHeight(1),
-    marginHorizontal: themeUtils.relativeWidth(3),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

@@ -13,12 +13,12 @@ const CommonButton = props => {
     labelColor,
     style,
     icon,
-    loading,
+    loading,iconBGcolor,
     variant = 'contained',
   } = props;
   const IconWithLabel = () => {
     return (
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center',backgroundColor:iconBGcolor}}>
         {icon && <Image source={icon} style={styles.icon} />}
         <Label bold color={labelColor} style={styles.buttonLabel}>
           {label}

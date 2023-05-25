@@ -116,13 +116,6 @@ const Login = ({navigation, route}) => {
         labelColor={COLOR.WHITE}
         onPress={handleSubmit}
       />
-      <CommonButton
-        style={{marginTop: 5}}
-        label={'Find Quiz'}
-        labelColor={COLOR.PRIMARY}
-        buttonColor={COLOR.WHITE}
-        icon={IMAGES.logo}
-      />
       {isSignIn ? (
         <CommonButton
           style={{marginTop: themeUtils.relativeHeight(3)}}

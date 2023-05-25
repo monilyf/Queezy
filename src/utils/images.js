@@ -16,4 +16,7 @@ export const ICONS = {
         whiteBackArrow: require('../assets/icons/whiteBackArrow.png'),
         blackBackArrow: require('../assets/icons/blackBackArrow.png'),
         headphone: require('../assets/icons/headphone.png'),
+        add: require('../assets/icons/add.png'),
+        close: require('../assets/icons/close.png'),
+        time: require('../assets/icons/time.png'),
 }

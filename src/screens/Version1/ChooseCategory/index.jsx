@@ -12,6 +12,7 @@ import {QUIZ_CATEGORY} from '../../utils/constant';
 import themeUtils from '../../utils/theme/themeUtils';
 import {COLOR} from '../../utils/theme/colors';
 import Label from '../../components/UI/Label';
+import CommonButton from '../../components/UI/CommonButton';
 
 const ChooseCategory = ({navigation}) => {
   const [selectedItem, setSelectedItem] = useState();
@@ -35,7 +36,7 @@ const ChooseCategory = ({navigation}) => {
           color={labelColor}
           mt={themeUtils.relativeHeight(
             1,
-          )}>{`${item.total_quizzes} Quizzes`}</Label>
+          )}>{`${item.total_questions} Quizzes`}</Label>
       </TouchableOpacity>
     );
   };
@@ -56,6 +57,12 @@ const ChooseCategory = ({navigation}) => {
             justifyContent: 'space-between',
           }}
         />
+            <CommonButton
+            style={{marginTop: themeUtils.relativeHeight(2)}}
+            label={'Add Question'}
+            labelColor={COLOR.WHITE}
+            onPress={()=>{}}
+          />
       </CommonCard>
     </MainLayout>
   );
@@ -65,7 +72,8 @@ export default ChooseCategory;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    alignSelf:'center',
     borderRadius: 30,
   },
   category: {

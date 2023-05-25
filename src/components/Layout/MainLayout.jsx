@@ -23,7 +23,7 @@ const MainLayout = ({children, statusBarColor, isDashboard, ...rest}) => {
         backgroundColor={barColor}
         barStyle={'light-content'}
       />
-      <SafeAreaView>
+      <SafeAreaView style={{width:'100%'}}>
         <Header isDashboard={isDashboard} {...rest} />
         {children}
       </SafeAreaView>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.PRIMARY,
     flex: 1,
     paddingVertical: themeUtils.relativeHeight(1),
-    paddingHorizontal: themeUtils.relativeWidth(6),
+    paddingHorizontal: themeUtils.relativeWidth(3),
     alignItems: 'center',
   },
 });
