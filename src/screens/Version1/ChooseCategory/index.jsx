@@ -6,13 +6,13 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import MainLayout from '../../components/Layout/MainLayout';
-import CommonCard from '../../components/UI/CommonCard';
-import {QUIZ_CATEGORY} from '../../utils/constant';
-import themeUtils from '../../utils/theme/themeUtils';
-import {COLOR} from '../../utils/theme/colors';
-import Label from '../../components/UI/Label';
-import CommonButton from '../../components/UI/CommonButton';
+import MainLayout from '../../../components/Layout/MainLayout';
+import CommonCard from '../../../components/UI/CommonCard';
+import {QUIZ_CATEGORY} from '../../../utils/constant';
+import themeUtils from '../../../utils/theme/themeUtils';
+import {COLOR} from '../../../utils/theme/colors';
+import Label from '../../../components/UI/Label';
+import CommonButton from '../../../components/UI/CommonButton';
 
 const ChooseCategory = ({navigation}) => {
   const [selectedItem, setSelectedItem] = useState();

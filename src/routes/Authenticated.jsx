@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ROUTE} from './routes';
 import Dashboard from '../screens/Version2/Dashboard';
-import ChooseCategory from '../screens/ChooseCategory';
+import ChooseCategory from '../screens/Version1/ChooseCategory';
 import CreateQuiz from '../screens/Version2/CreateQuiz';
 import AddQuestions from '../screens/Version2/AddQuestions';
 import AddCategory from '../screens/Version2/AddCategory';

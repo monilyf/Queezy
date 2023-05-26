@@ -12,17 +12,17 @@ import {
   View,
 } from 'react-native';
 import React, {useMemo, useState} from 'react';
-import MainLayout from '../../components/Layout/MainLayout';
-import CommonCard from '../../components/UI/CommonCard';
-import Label from '../../components/UI/Label';
-import themeUtils from '../../utils/theme/themeUtils';
-import {COLOR} from '../../utils/theme/colors';
-import CommonButton from '../../components/UI/CommonButton';
-import ImageUpload from '../../components/UI/ImageUpload';
-import {ROUTE} from '../../routes/routes';
+import MainLayout from '../../../components/Layout/MainLayout';
+import CommonCard from '../../../components/UI/CommonCard';
+import Label from '../../../components/UI/Label';
+import themeUtils from '../../../utils/theme/themeUtils';
+import {COLOR} from '../../../utils/theme/colors';
+import CommonButton from '../../../components/UI/CommonButton';
+import ImageUpload from '../../../components/UI/ImageUpload';
+import {ROUTE} from '../../../routes/routes';
 import {useFormik} from 'formik';
-import CommonInput from '../../components/UI/CommonInput';
-import {ICONS} from '../../utils/images';
+import CommonInput from '../../../components/UI/CommonInput';
+import {ICONS} from '../../../utils/images';
 import AddOptionModal from './components/AddOptionModal';
 
 const AddQuestions = ({navigation, route}) => {

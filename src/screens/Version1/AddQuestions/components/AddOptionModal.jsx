@@ -1,13 +1,13 @@
 import {Image, Modal, StyleSheet, Switch, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {addOptionModalvalidation} from '../../../utils/validations';
+import {addOptionModalvalidation} from '../../../../utils/validations';
 import {useFormik} from 'formik';
-import CommonInput from '../../../components/UI/CommonInput';
-import CommonButton from '../../../components/UI/CommonButton';
-import {COLOR} from '../../../utils/theme/colors';
-import themeUtils from '../../../utils/theme/themeUtils';
-import Label from '../../../components/UI/Label';
-import {ICONS} from '../../../utils/images';
+import CommonInput from '../../../../components/UI/CommonInput';
+import CommonButton from '../../../../components/UI/CommonButton';
+import {COLOR} from '../../../../utils/theme/colors';
+import themeUtils from '../../../../utils/theme/themeUtils';
+import Label from '../../../../components/UI/Label';
+import {ICONS} from '../../../../utils/images';
 
 const AddOptionModal = ({open, onClose, onSave, id}) => {
   const {
