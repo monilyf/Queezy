@@ -4,8 +4,6 @@ import {
   Modal,
   ScrollView,
   StyleSheet,
-  Switch,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -20,9 +18,8 @@ import themeUtils from '../../../../utils/theme/themeUtils';
 import Label from '../../../../components/UI/Label';
 import {ICONS} from '../../../../utils/images';
 import AddOptionModal from './AddOptionModal';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {labelValuePairedArrayObject} from '../../../../utils/helper';
-import {LEVELS} from '../../../../utils/constant';
+import {QUIZ_LEVELS} from '../../../../utils/constant';
 import CommonDropdown from '../../../../components/UI/CommonDropdown';
 
 const AddQuestionModal = ({open, onClose, onSave, id}) => {
@@ -33,7 +30,7 @@ const AddQuestionModal = ({open, onClose, onSave, id}) => {
   const [dropdownList, setDropdownList] = useState();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
-    const list = [...labelValuePairedArrayObject(LEVELS, 'name')];
+    const list = [...labelValuePairedArrayObject(QUIZ_LEVELS, 'name')];
     setDropdownList(list);
     return () => {
       resetForm();
@@ -169,18 +166,20 @@ const AddQuestionModal = ({open, onClose, onSave, id}) => {
                 values.open && {marginBottom: themeUtils.relativeHeight(25)},
               ]}
             />
-            <FlatList
-              data={values.option_array}
-              renderItem={renderItem}
-              keyExtractor={item => item.id}
-              numColumns={2}
-              scrollEnabled={true}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            />
+            <View style={{zIndex: -1}}>
+              <FlatList
+                data={values.option_array}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                numColumns={2}
+                scrollEnabled={true}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              />
+            </View>
           </ScrollView>
           <CommonButton
             style={{marginTop: themeUtils.relativeHeight(2)}}
@@ -207,7 +206,6 @@ const styles = StyleSheet.create({
   topView: {
     width: '95%',
     marginHorizontal: themeUtils.relativeWidth(3),
-    marginTop: themeUtils.relativeWidth(26),
     padding: themeUtils.relativeWidth(5),
     borderRadius: 20,
     backgroundColor: COLOR.WHITE,
@@ -215,6 +213,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   image: {

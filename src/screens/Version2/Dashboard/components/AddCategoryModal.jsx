@@ -13,6 +13,7 @@ import CommonButton from '../../../../components/UI/CommonButton';
 import {COLOR} from '../../../../utils/theme/colors';
 import themeUtils from '../../../../utils/theme/themeUtils';
 import {ICONS} from '../../../../utils/images';
+import CommonCard from '../../../../components/UI/CommonCard';
 
 const AddCategoryModal = ({open, onClose, onSave}) => {
   const {
@@ -45,7 +46,7 @@ const AddCategoryModal = ({open, onClose, onSave}) => {
       visible={open}
       onRequestClose={handleClose}>
       <View style={styles.modalContainer}>
-        <View style={styles.topView}>
+        <CommonCard style={styles.topView}>
           <TouchableOpacity
             style={{alignItems: 'flex-end'}}
             onPress={handleClose}>
@@ -65,7 +66,7 @@ const AddCategoryModal = ({open, onClose, onSave}) => {
             labelColor={COLOR.WHITE}
             onPress={handleSubmit}
           />
-        </View>
+        </CommonCard>
       </View>
     </Modal>
   );
@@ -75,12 +76,7 @@ export default AddCategoryModal;
 
 const styles = StyleSheet.create({
   topView: {
-    width: '95%',
-    marginHorizontal: themeUtils.relativeWidth(3),
     marginTop: themeUtils.relativeWidth(26),
-    padding: themeUtils.relativeWidth(5),
-    borderRadius: 20,
-    backgroundColor: COLOR.WHITE,
   },
   modalContainer: {
     flex: 1,

@@ -14,4 +14,8 @@ export const ROUTE = {
   ADD_QUESTIONS: 'AddQuestions',
   ADD_CATEGORY: 'AddCategory',
   QUESTION_LISTING: 'QuestionsListing',
+  SETTINGS: 'Settings',
+  HOME:'Home',
+  QUIZ_INTRO:'QuizInto',
+  QUIZ:'Quiz',
 };

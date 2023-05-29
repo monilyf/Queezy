@@ -40,6 +40,7 @@ const ResetPassword = ({navigation}) => {
           type={'passsword'}
           secureTextEntry={true}
           value={values.password}
+          maxLength={16}
           onChangeText={handleChange('password')}
           error={touched.password && errors.password}
         />
@@ -49,6 +50,7 @@ const ResetPassword = ({navigation}) => {
           icon={ICONS.lock}
           type={'passsword'}
           secureTextEntry={true}
+          maxLength={16}
           value={values.confirmPassword}
           onChangeText={handleChange('confirmPassword')}
           error={touched.confirmPassword && errors.confirmPassword}

@@ -5,6 +5,7 @@ export const IMAGES = {
         logo: require('../assets/images/logo.png'),
         appLogo: require('../assets/images/appLogo.png'),
         planeBG: require('../assets/images/planeBG1.png'),
+        talk: require('../assets/images/talk.png'),
 }
 
 export const ICONS = {
@@ -19,4 +20,6 @@ export const ICONS = {
         add: require('../assets/icons/add.png'),
         close: require('../assets/icons/close.png'),
         time: require('../assets/icons/time.png'),
+        questionMark: require('../assets/icons/questionMark.png'),
+        puzzle: require('../assets/icons/puzzle.png'),
 }

@@ -13,7 +13,13 @@ const Question = ({question,onPress}) => {
         </Label>
       </View>
       <View style={styles.questionBox}>
-        <Label bold>{question.question}</Label>
+        <Label bold>{question.question}{' '}
+        <View style={{borderRadius:5,backgroundColor:COLOR.PRIMARY,alignItems:'center'}}>
+        <Label xsmall ph={themeUtils.relativeWidth(1)} color={COLOR.WHITE} bolder>
+          {question.level}
+        </Label>
+      </View>
+        </Label>
       </View>
     </TouchableOpacity>
   );

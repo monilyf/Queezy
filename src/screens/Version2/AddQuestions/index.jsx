@@ -24,11 +24,11 @@ const AddQuestions = ({navigation, route}) => {
     setQuestionArray(questionArrayClone);
   };
   const handleSubmit = () => {
-    const payload = {category_id: currentCategory, question_array:questionArray};
+    const payload = {category_id: currentCategory.id, question_array:questionArray};
     navigation.navigate(ROUTE.DASHBOARD);
   };
   const renderQuestions = ({item}) => {
-    return <Question question={item} />;
+    return <Question question={item} key={item.id}/>;
   };
   return (
     <MainLayout
@@ -76,7 +76,7 @@ export default AddQuestions;
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
-    height: themeUtils.relativeHeight(85),
+    justifyContent:'space-evenly'
   },
   questionContainer: {
     height: themeUtils.relativeHeight(65),

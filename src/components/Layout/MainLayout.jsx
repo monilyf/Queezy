@@ -10,7 +10,7 @@ import {COLOR} from '../../utils/theme/colors';
 import themeUtils from '../../utils/theme/themeUtils';
 import Header from '../UI/Header';
 
-const MainLayout = ({children, statusBarColor, isDashboard, ...rest}) => {
+const MainLayout = ({children, statusBarColor, isDashboard, isCustomHeader,  ...rest}) => {
   const barColor = statusBarColor
     ? statusBarColor
     : Platform.OS === 'ios'
@@ -23,8 +23,8 @@ const MainLayout = ({children, statusBarColor, isDashboard, ...rest}) => {
         backgroundColor={barColor}
         barStyle={'light-content'}
       />
-      <SafeAreaView style={{width:'100%'}}>
-        <Header isDashboard={isDashboard} {...rest} />
+      <SafeAreaView style={styles.subContainer}>
+       {!isCustomHeader && <Header isDashboard={isDashboard} {...rest} />}
         {children}
       </SafeAreaView>
     </View>
@@ -40,5 +40,9 @@ const styles = StyleSheet.create({
     paddingVertical: themeUtils.relativeHeight(1),
     paddingHorizontal: themeUtils.relativeWidth(3),
     alignItems: 'center',
+  },
+  subContainer: {
+    width: '100%',
+    flex: 1,
   },
 });

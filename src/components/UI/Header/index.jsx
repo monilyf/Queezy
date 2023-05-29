@@ -5,7 +5,7 @@ import Label from '../Label';
 import {ICONS, IMAGES} from '../../../utils/images';
 import {COLOR} from '../../../utils/theme/colors';
 
-const Header = ({onBackPress, headerLabel, isDashboard, rightComponent}) => {
+const Header = ({onBackPress, headerLabel, isDashboard, rightComponent, isQuiz}) => {
   return (
     <>
       {isDashboard ? (
@@ -22,9 +22,11 @@ const Header = ({onBackPress, headerLabel, isDashboard, rightComponent}) => {
         </View>
       ) : (
         <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={onBackPress}>
-            <Image source={ICONS.whiteBackArrow} style={styles.backArrow} />
-          </TouchableOpacity>
+          {onBackPress && (
+            <TouchableOpacity onPress={onBackPress}>
+              <Image source={ICONS.whiteBackArrow} style={styles.backArrow} />
+            </TouchableOpacity>
+          )}
           <Label xlarge bolder color={COLOR.WHITE}>
             {headerLabel}
           </Label>

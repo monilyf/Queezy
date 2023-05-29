@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import MainLayout from '../../../components/Layout/MainLayout';
 import themeUtils from '../../../utils/theme/themeUtils';
@@ -7,25 +7,37 @@ import {COLOR} from '../../../utils/theme/colors';
 import CommonButton from '../../../components/UI/CommonButton';
 import {ROUTE} from '../../../routes/routes';
 import CategoryCard from './components/CategoryCard';
-import {QUIZ_CATEGORY} from '../../../utils/constant';
+import {QUIZ_CATEGORY, USER_ROLE} from '../../../utils/constant';
 import AddCategoryModal from './components/AddCategoryModal';
-import { useDispatch } from 'react-redux';
-import { setCurrentCategory } from '../../../redux/reducers/categorySlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {setCurrentCategory} from '../../../redux/reducers/categorySlice';
 import SqureCategoryCard from './components/SqureCategoryCard';
+import CommonCard from '../../../components/UI/CommonCard';
 
 const Dashboard = ({navigation}) => {
   const [showAddCategoryModal, setCategoryModal] = useState(false);
   const dispatch = useDispatch();
+  const {role} = useSelector(state=>state.auth.user);
 
   const handleNavigation = item => {
-    dispatch(setCurrentCategory(item.name));
-    navigation.navigate(ROUTE.QUESTION_LISTING, {
-      questions: item.total_questions,
-    });
+    dispatch(setCurrentCategory(item));
+    if(role===USER_ROLE.PLAYER){
+
+      navigation.navigate(ROUTE.QUIZ_INTRO, {
+        questions: item.total_questions,
+      });
+    }else{
+      navigation.navigate(ROUTE.QUESTION_LISTING, {
+        questions: item.total_questions,
+      });
+    }
   };
   const renderCategoryCards = ({item}) => {
     return (
-      <SqureCategoryCard category={item} onPress={() => handleNavigation(item)} />
+      <SqureCategoryCard
+        category={item}
+        onPress={() => handleNavigation(item)}
+      />
     );
   };
 
@@ -39,7 +51,7 @@ const Dashboard = ({navigation}) => {
         letterSpacing={1}>
         LIST OF AVAILABLE CATEGORY
       </Label>
-      <View style={styles.container}>
+      <CommonCard style={styles.container}>
         <FlatList
           renderItem={renderCategoryCards}
           data={QUIZ_CATEGORY}
@@ -52,12 +64,11 @@ const Dashboard = ({navigation}) => {
             justifyContent: 'space-between',
           }}
         />
-      </View>
+      </CommonCard>
       <CommonButton
-        style={{marginTop: 15}}
         label={'Add New Category'}
         labelColor={COLOR.WHITE}
-        borderColor={COLOR.WHITE}   
+        borderColor={COLOR.WHITE}
         variant={'outlined'}
         onPress={() => setCategoryModal(true)}
       />
@@ -75,8 +86,7 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   container: {
-    height: themeUtils.relativeHeight(70),
-    backgroundColor:COLOR.WHITE,
-    borderRadius:20
+    alignSelf: 'center',
+    flex: 1,
   },
 });

@@ -13,6 +13,7 @@ import {useDispatch} from 'react-redux';
 import {CommonActions} from '@react-navigation/native';
 import PublicLayout from '../../components/Layout/PublicLayout';
 import Label from '../../components/UI/Label';
+import {api} from '../../api';
 
 const Login = ({navigation, route}) => {
   const {params} = route;
@@ -33,18 +34,33 @@ const Login = ({navigation, route}) => {
       validationSchema: isSignIn ? loginValidation : signupValidation,
       onSubmit: async values => {
         if (isSignIn) {
-          dispatch(setUserData(true));
+          handleLogin();
+        } else {
+          // handleSignUp()
+          // setSignIn(true);
+          if (values.name === 'mansi') {
+            dispatch(setUserData({role: 'player'}));
+          } else {
+            dispatch(setUserData({role: 'admin'}));
+          }
           navigation.dispatch(
             CommonActions.reset({
               index: 0,
               routes: [{name: ROUTE.AUTHENTICATED}],
             }),
           );
-        } else {
-          setSignIn(true);
         }
       },
     });
+  const handleLogin = async () => {
+    const params = {email: values.email, password: values.password};
+    try {
+      const response = await api.auth.login(params);
+      console.log('response: ', response);
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  };
   useEffect(() => {
     resetForm();
   }, [isSignIn]);
@@ -93,6 +109,7 @@ const Login = ({navigation, route}) => {
             type={'passsword'}
             secureTextEntry={true}
             value={values.password}
+            maxLength={16}
             onChangeText={handleChange('password')}
             error={touched.password && errors.password}
           />
