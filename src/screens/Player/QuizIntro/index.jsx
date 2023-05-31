@@ -23,7 +23,7 @@ const QuizInto = ({navigation}) => {
       <Image source={IMAGES.talk} style={styles.image} />
       <CommonCard style={styles.container}>
         <Label bolder small color={COLOR.GRAY}>
-          {currentCategory.name.toUpperCase()}
+          {currentCategory?.name?.toUpperCase()}
         </Label>
         <Label bolder mt={themeUtils.relativeHeight(1)}>
           Enjoy Quiz

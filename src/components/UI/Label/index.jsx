@@ -37,7 +37,7 @@ const Label = (props) => {
         else if (props.lighter)
             stylesArray.push({ fontWeight: "200" });
         else
-            stylesArray.push({ fontWeight: "normal" });
+            stylesArray.push({ fontWeight: "normal"});
 
         stylesArray.push({
             color: props.color,
@@ -45,6 +45,8 @@ const Label = (props) => {
             marginBottom: props.mb,
             marginStart: props.ms,
             marginEnd: props.me,
+            marginHorizontal: props.mx,
+            marginVertical: props.my,
             paddingHorizontal: props.ph,
             paddingBottom:props.pb,
             textAlign: props.align,
@@ -83,6 +85,8 @@ Label.defaultProps = {
     me: 0,
     ph:0,
     pb:0,
+    mx:0,
+    my:0,
     singleLine: false,
     border:0,
     borderColor:COLOR.BLACK,
@@ -106,6 +110,8 @@ Label.propTypes = {
     mb: PropTypes.number,
     ms: PropTypes.number,
     me: PropTypes.number,
+    mx: PropTypes.number,
+    my: PropTypes.number,
     ph: PropTypes.number,
     pb: PropTypes.number,
     align: PropTypes.string,

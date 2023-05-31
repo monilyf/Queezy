@@ -10,7 +10,7 @@ import {COLOR} from '../../utils/theme/colors';
 import themeUtils from '../../utils/theme/themeUtils';
 import Header from '../UI/Header';
 
-const MainLayout = ({children, statusBarColor, isDashboard, isCustomHeader,  ...rest}) => {
+const MainLayout = ({children, statusBarColor, isDashboard, isCustomHeader,middleComponent,  ...rest}) => {
   const barColor = statusBarColor
     ? statusBarColor
     : Platform.OS === 'ios'
@@ -24,7 +24,7 @@ const MainLayout = ({children, statusBarColor, isDashboard, isCustomHeader,  ...
         barStyle={'light-content'}
       />
       <SafeAreaView style={styles.subContainer}>
-       {!isCustomHeader && <Header isDashboard={isDashboard} {...rest} />}
+       {!isCustomHeader && <Header isDashboard={isDashboard} {...rest} >{middleComponent}</Header>}
         {children}
       </SafeAreaView>
     </View>

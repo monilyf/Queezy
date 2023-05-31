@@ -47,7 +47,6 @@ request.interceptors.response.use(
         return res;
     },
     (err) => {
-        console.log('err: ', err);
         const originalRequest = err.config;
         const status = err.response?.status;
         const response = err.response?.data;

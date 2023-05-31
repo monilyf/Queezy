@@ -6,6 +6,7 @@ export const IMAGES = {
         appLogo: require('../assets/images/appLogo.png'),
         planeBG: require('../assets/images/planeBG1.png'),
         talk: require('../assets/images/talk.png'),
+        trophy: require('../assets/images/trophy.png'),
 }
 
 export const ICONS = {
