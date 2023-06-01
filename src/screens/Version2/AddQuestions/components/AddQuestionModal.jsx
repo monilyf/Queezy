@@ -21,16 +21,20 @@ import AddOptionModal from './AddOptionModal';
 import {labelValuePairedArrayObject} from '../../../../utils/helper';
 import {QUIZ_LEVELS} from '../../../../utils/constant';
 import CommonDropdown from '../../../../components/UI/CommonDropdown';
+import { useSelector } from 'react-redux';
 
-const AddQuestionModal = ({open, onClose, onSave, id}) => {
+const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
   const [showOptionModal, setOptionModal] = useState({
     isOpen: false,
     current: null,
   });
   const [dropdownList, setDropdownList] = useState();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const {questionArray} = useSelector(state => state.questions);
+
   useEffect(() => {
-    const list = [...labelValuePairedArrayObject(QUIZ_LEVELS, 'name')];
+    const list = [...QUIZ_LEVELS.map(item=>{
+      return {label:item.name,value:item.id}})];
     setDropdownList(list);
     return () => {
       resetForm();
@@ -47,9 +51,10 @@ const AddQuestionModal = ({open, onClose, onSave, id}) => {
     resetForm,
   } = useFormik({
     initialValues: {
+      id:questionArray?.length ? questionArray?.length+1 : 1,
       question: '',
       level_id: '',
-      intervalTime: '10',
+      interval_time: '10',
       option_array: [{id: 1}, {id: 2}, {id: 3}, {id: 4}],
     },
     validationSchema: addQuestionModalvalidation,
@@ -118,11 +123,11 @@ const AddQuestionModal = ({open, onClose, onSave, id}) => {
                 <Image source={ICONS.time} style={styles.timer} />
                 <TextInput
                   maxLength={2}
-                  name={'intervalTime'}
+                  name={'interval_time'}
                   onBlur={handleBlur}
-                  value={values.intervalTime}
+                  value={values.interval_time}
                   keyboardType="number-pad"
-                  onChangeText={handleChange('intervalTime')}
+                  onChangeText={handleChange('interval_time')}
                   style={{fontSize: themeUtils.fontSmall, fontWeight: '600'}}
                 />
                 <Label ms={themeUtils.relativeWidth(1)} small bolder>

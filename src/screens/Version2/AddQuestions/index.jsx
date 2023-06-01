@@ -6,29 +6,35 @@ import themeUtils from '../../../utils/theme/themeUtils';
 import {COLOR} from '../../../utils/theme/colors';
 import CommonButton from '../../../components/UI/CommonButton';
 import AddQuestionModal from './components/AddQuestionModal';
-import {useSelector} from 'react-redux';
-import Question from '../QuestionsListing/components/Question';
+import {useDispatch, useSelector} from 'react-redux';
 import {ROUTE} from '../../../routes/routes';
 import Label from '../../../components/UI/Label';
+import Question from '../../../components/UI/Question';
+import { addQuestion } from '../../../redux/reducers/questionSlice';
 
 const AddQuestions = ({navigation, route}) => {
   const {currentCategory} = useSelector(state => state.category);
 
-  const [showQuestionModal, setQuestionModal] = useState(false);
-  const [questionArray, setQuestionArray] = useState([]);
+  const [showQuestionModal, setQuestionModal] = useState({isOpen:false,currentQuestion:''});
+  // const [questionArray, setQuestionArray] = useState([]);
+  const {questionArray} = useSelector(state => state.questions);
 
+  const dispatch = useDispatch();
   const handleQuestion = value => {
     // check if question is already exists?
-    let questionArrayClone = [...questionArray];
-    questionArrayClone.push({...value});
-    setQuestionArray(questionArrayClone);
+    // let questionArrayClone = [...questionArray];
+    // questionArrayClone.push({...value});
+    // setQuestionArray(questionArrayClone);
+    dispatch(addQuestion({...value}))
   };
   const handleSubmit = () => {
     const payload = {category_id: currentCategory.id, question_array:questionArray};
+    console.log('payload: ', questionArray);
+    //api call
     navigation.navigate(ROUTE.DASHBOARD);
   };
   const renderQuestions = ({item}) => {
-    return <Question question={item} key={item.id}/>;
+    return <Question question={item} key={item.id} onPress={()=>setQuestionModal({isOpen:true,currentQuestion:item})}/>;
   };
   return (
     <MainLayout
@@ -38,7 +44,7 @@ const AddQuestions = ({navigation, route}) => {
         <CommonButton
           label={`Add Question`}
           labelColor={COLOR.WHITE}
-          onPress={() => setQuestionModal(true)}
+          onPress={() => setQuestionModal({isOpen:true,currentQuestion:''})}
         />
         <View style={styles.questionContainer}>
           {questionArray.length > 0 ? (
@@ -60,10 +66,11 @@ const AddQuestions = ({navigation, route}) => {
         )}
       </CommonCard>
 
-      {showQuestionModal && (
+      {showQuestionModal.isOpen && (
         <AddQuestionModal
-          open={showQuestionModal}
-          onClose={() => setQuestionModal(false)}
+          open={showQuestionModal.isOpen}
+          currentQuestion={showQuestionModal.currentQuestion}
+          onClose={() => setQuestionModal({isOpen:false,currentQuestion:''})}
           onSave={value => handleQuestion(value)}
         />
       )}

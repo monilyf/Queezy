@@ -10,14 +10,14 @@ import {COLOR} from '../../utils/theme/colors';
 import themeUtils from '../../utils/theme/themeUtils';
 import Header from '../UI/Header';
 
-const MainLayout = ({children, statusBarColor, isDashboard, isCustomHeader,middleComponent,  ...rest}) => {
+const MainLayout = ({children, statusBarColor,style, isDashboard, isCustomHeader,middleComponent,  ...rest}) => {
   const barColor = statusBarColor
     ? statusBarColor
     : Platform.OS === 'ios'
     ? 'transparent'
     : COLOR.PRIMARY;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,style]}>
       <StatusBar
         animated={true}
         backgroundColor={barColor}

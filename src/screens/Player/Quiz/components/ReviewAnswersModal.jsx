@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   Modal,
   SafeAreaView,
@@ -17,6 +18,8 @@ import CommonCard from '../../../../components/UI/CommonCard';
 import Label from '../../../../components/UI/Label';
 import {useSelector} from 'react-redux';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {QUESTION_ARRAY} from '../../../../utils/constant';
+import Question from '../../../../components/UI/Question';
 
 const ReviewAnswersModal = ({navigation, open, onClose, onSave}) => {
   const {
@@ -37,16 +40,30 @@ const ReviewAnswersModal = ({navigation, open, onClose, onSave}) => {
       onClose();
     }
   };
-  const Score = ({label, result}) => {
+  console.log('ICONS.puzzle===', IMAGES.trophy);
+  const renderQuestions = ({item}) => {
     return (
-      <View style={styles.score}>
-        <Label bolder small color={COLOR.GRAY}>
-          {label}
+      <Question
+        question={item}
+        showReview={true}
+        isTrue={item.id % 2 == 0}
+        answerComponent={<AnswerComponent data={item} />}
+        questionBoxStyle={{width: themeUtils.relativeWidth(62)}}
+      />
+    );
+  };
+  const AnswerComponent = ({data}) => {
+    return (
+      <>
+        {data.id % 2 != 0 && (
+          <Label small color={COLOR.DARK_GRAY}>
+            Your Answer: {data.option_array[0].option}
+          </Label>
+        )}
+        <Label small color={COLOR.DARK_GRAY}>
+          Correct Answer: {data.option_array[0].option}
         </Label>
-        <Label bolder small large mt={themeUtils.relativeHeight(1)}>
-          {result}
-        </Label>
-      </View>
+      </>
     );
   };
   return (
@@ -83,11 +100,7 @@ const ReviewAnswersModal = ({navigation, open, onClose, onSave}) => {
               <Image source={ICONS.puzzle} style={styles.image} />
             </View>
           </View>
-          <View
-            style={[
-              styles.card,styles.rowSpaceBetween,
-              {backgroundColor: COLOR.PINK, marginBottom: 0,borderBottomEndRadius:0,borderBottomStartRadius:0},
-            ]}>
+          <View style={[styles.card, styles.rowSpaceBetween, styles.innerCard]}>
             <View
               style={{
                 height: 100,
@@ -96,7 +109,6 @@ const ReviewAnswersModal = ({navigation, open, onClose, onSave}) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: 50,
-                marginBottom:20
               }}>
               <View
                 style={{
@@ -106,18 +118,27 @@ const ReviewAnswersModal = ({navigation, open, onClose, onSave}) => {
                   borderRadius: 50,
                   alignItems: 'center',
                   justifyContent: 'center',
-                }}>
-              </View>
+                }}
+              />
             </View>
-           <View style={{width:'50%',backgroundColor:'red',alignItems:'center',justifyContent:'center'}}>
-           <Label
-                color={COLOR.WHITE}
-                
-                bold>
+            <View style={{width: '50%'}}>
+              <Label color={COLOR.WHITE} bolder>
                 {'You answered 7 out of 10 questions'}
               </Label>
-           </View>
+            </View>
           </View>
+        </View>
+        <Label bolder large>
+          {'Your Answers'}
+        </Label>
+        <View style={[styles.card, styles.questionCard]}>
+          <FlatList
+            //
+            renderItem={renderQuestions}
+            data={QUESTION_ARRAY}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+          />
         </View>
       </SafeAreaView>
     </Modal>
@@ -133,54 +154,46 @@ const styles = StyleSheet.create({
     paddingTop: themeUtils.relativeWidth(4),
     backgroundColor: COLOR.PRIMARY,
     borderRadius: 20,
-    //   alignItems: 'center',
-    marginHorizontal: themeUtils.relativeWidth(5),
   },
   modalContainer: {
     flex: 1,
     backgroundColor: COLOR.WHITE,
+    marginHorizontal: themeUtils.relativeWidth(5),
   },
   image: {
     height: themeUtils.relativeHeight(3),
     width: themeUtils.relativeHeight(3),
   },
-  trophy: {
-    height: themeUtils.relativeHeight(15),
-    width: themeUtils.relativeHeight(15),
-    marginBottom: themeUtils.relativeHeight(3),
-  },
   header: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: themeUtils.relativeWidth(4),
-  },
-  button: {
-    padding: themeUtils.relativeWidth(5),
-    marginTop: themeUtils.relativeHeight(3),
-    borderRadius: 20,
-    backgroundColor: COLOR.LIGHT_PINK,
-  },
-  scoreBox: {
-    marginHorizontal: themeUtils.relativeWidth(5),
+    marginVertical: themeUtils.relativeWidth(4),
   },
   rowSpaceBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginVertical: themeUtils.relativeWidth(2),
-  },
-  score: {
-    marginTop: themeUtils.relativeHeight(1.5),
-    flex: 1,
   },
   buttonContainer: {
     flex: 1,
     alignItems: 'flex-end',
-    // justifyContent:
   },
   icon: {
-    padding: themeUtils.relativeHeight(1.7),
+    padding: themeUtils.relativeHeight(1),
     backgroundColor: COLOR.SECONDARY,
     borderRadius: 20,
+  },
+  innerCard: {
+    backgroundColor: COLOR.PINK,
+    marginBottom: 0,
+    paddingBottom: themeUtils.relativeWidth(4),
+    borderBottomEndRadius: 0,
+    borderBottomStartRadius: 0,
+  },
+  questionCard: {
+    flex: 1,
+    backgroundColor: COLOR.LIGHT_GRAY,
   },
 });

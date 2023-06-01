@@ -8,35 +8,37 @@ import themeUtils from '../../../utils/theme/themeUtils';
 import CommonButton from '../../../components/UI/CommonButton';
 import {ROUTE} from '../../../routes/routes';
 import {QUESTIONS} from '../../../utils/constant';
-import Question from './components/Question';
 import {useSelector} from 'react-redux';
+import Question from '../../../components/UI/Question';
 
 const QuestionsListing = ({navigation, route}) => {
   const {currentCategory} = useSelector(state => state.category);
-  const {questions} = route?.params;
+  const {questionArray} = useSelector(state => state.questions);
   const renderQuestions = ({item}) => {
-    return <Question question={item} onPress={() => {}} />;
+    return <Question question={item} showLevel={true} />;
   };
   return (
     <MainLayout
-      headerLabel={`${currentCategory.name}'s questions`}
-      onBackPress={() => navigation.goBack()}> 
+      headerLabel={`${currentCategory?.name}'s questions`}
+      onBackPress={() => navigation.goBack()}>
       <CommonCard style={styles.container}>
         <View>
           <View style={styles.titleBox}>
             <Label large bolder>
               Questions
             </Label>
-            <View style={styles.numberBox}>
-              <Label color={COLOR.WHITE} bolder>
-                {questions}
-              </Label>
-            </View>
+            {questionArray?.length > 0 && (
+              <View style={styles.numberBox}>
+                <Label color={COLOR.WHITE} bolder>
+                  {questionArray?.length}
+                </Label>
+              </View>
+            )}
           </View>
           <View style={styles.questionContainer}>
             <FlatList
               renderItem={renderQuestions}
-              data={QUESTIONS}
+              data={questionArray}
               keyExtractor={item => item.id}
               showsVerticalScrollIndicator={false}
             />
@@ -58,8 +60,8 @@ export default QuestionsListing;
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
-    flex:1,
-    justifyContent:'space-evenly'
+    flex: 1,
+    justifyContent: 'space-evenly',
   },
   titleBox: {
     flexDirection: 'row',
