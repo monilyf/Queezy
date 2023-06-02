@@ -23,14 +23,16 @@ import {QUIZ_LEVELS} from '../../../../utils/constant';
 import CommonDropdown from '../../../../components/UI/CommonDropdown';
 import { useSelector } from 'react-redux';
 
-const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
+const AddQuestionModal = ({open, onClose, onSave}) => {
   const [showOptionModal, setOptionModal] = useState({
     isOpen: false,
     current: null,
   });
   const [dropdownList, setDropdownList] = useState();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const {questionArray} = useSelector(state => state.questions);
+  const {newQuestionArray} = useSelector(state => state.questions);
+  const {currentQuestion} = useSelector(state => state.questions);
+  console.log('currentQuestion: ', currentQuestion);
 
   useEffect(() => {
     const list = [...QUIZ_LEVELS.map(item=>{
@@ -40,6 +42,18 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
       resetForm();
     };
   }, []);
+  useEffect(() => {
+ if(Object.keys(currentQuestion).length){
+  setValues({
+    id:currentQuestion.id,
+    question:currentQuestion.question,
+    level_id:currentQuestion.level_id,
+    interval_time:currentQuestion.interval_time,
+    option_array:currentQuestion.option_array
+  })
+ }
+  }, [currentQuestion])
+  
   const {
     handleChange,
     handleSubmit,
@@ -49,13 +63,14 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
     handleBlur,
     setFieldValue,
     resetForm,
+    setValues
   } = useFormik({
     initialValues: {
-      id:questionArray?.length ? questionArray?.length+1 : 1,
+      id:newQuestionArray?.length ? newQuestionArray?.length+1 : 1,
       question: '',
       level_id: '',
       interval_time: '10',
-      option_array: [{id: 1}, {id: 2}, {id: 3}, {id: 4}],
+      option_array: [],
     },
     validationSchema: addQuestionModalvalidation,
     onSubmit: values => {
@@ -73,7 +88,7 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
     return (
       <TouchableOpacity
         style={styles.optionBox}
-        onPress={() => setOptionModal({isOpen: true, current: item.id})}>
+        onPress={() => setOptionModal({isOpen: true, current: item})}>
         {!item.option && <Image source={ICONS.add} style={styles.image} />}
         <Label bold small color={COLOR.PRIMARY}>
           {item.option ? item.option : 'Add Answer'}
@@ -81,21 +96,23 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
       </TouchableOpacity>
     );
   };
-  const handleOptions = ({option, isCorrectAnswer}) => {
-    const optionClone = [...values.option_array];
+  const handleOptions = ({id, option, is_correct_answer}) => {
+    const idd = Number(values.option_array?.length+1)
+    // const optionClone = [...values.option_array,{id ,option, is_correct_answer}];
+    let optionClone = [...values.option_array];
     const index = optionClone.findIndex(
-      item => item.id === showOptionModal.current,
+      item => item.id === id,
     );
+    console.log('index: ', index);
     if (index > -1) {
-      optionClone[index] = {
-        ...values.option_array[index],
-        option,
-        isCorrectAnswer,
-      };
-    }
+      optionClone[index] = {id:idd ,option, is_correct_answer}
+      }else{
+        optionClone= [...values.option_array,{id:idd ,option, is_correct_answer}]
+      }
     setFieldValue('option_array', optionClone);
     setOptionModal({isOpen: false, id: null});
   };
+  console.log('option_array==',values.option_array)
   return (
     <Modal
       animationType="slide"
@@ -172,7 +189,7 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
               ]}
             />
             <View style={{zIndex: -1}}>
-              <FlatList
+             <FlatList
                 data={values.option_array}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
@@ -186,6 +203,8 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
               />
             </View>
           </ScrollView>
+          <Label bolder mt={themeUtils.relativeHeight(2)} onPress={()=>setOptionModal({isOpen: true, current: ''})}>+ Add Options</Label>
+
           <CommonButton
             style={{marginTop: themeUtils.relativeHeight(2)}}
             label={'Save'}
@@ -195,6 +214,7 @@ const AddQuestionModal = ({open, onClose, onSave, currentQuestion}) => {
           {showOptionModal.isOpen && (
             <AddOptionModal
               open={showOptionModal.isOpen}
+              current={showOptionModal.current}
               onClose={() => setOptionModal({isOpen: false, current: null})}
               onSave={value => handleOptions(value)}
             />
@@ -214,6 +234,9 @@ const styles = StyleSheet.create({
     padding: themeUtils.relativeWidth(5),
     borderRadius: 20,
     backgroundColor: COLOR.WHITE,
+    maxHeight:themeUtils.relativeHeight(80),
+    minHeight:themeUtils.relativeHeight(70)
+
   },
   modalContainer: {
     flex: 1,

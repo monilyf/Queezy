@@ -28,6 +28,8 @@
     "react-native-safe-area-context": "^4.5.3",
     "react-native-screens": "^3.20.0",
     "react-native-swiper": "^1.6.0",
+    "react-native-video": "^5.2.1",
+    "react-native-youtube": "^2.0.2",
     "react-redux": "^8.0.5",
     "redux-persist": "^6.0.0",
     "rn-theme-wrapper": "^1.6.5-beta",

@@ -11,13 +11,26 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Settings from '../screens/Version2/Settings';
 import QuizInto from '../screens/Player/QuizIntro';
 import Quiz from '../screens/Player/Quiz';
+import { Image } from 'react-native';
+import { ICONS } from '../utils/images';
+import themeUtils from '../utils/theme/themeUtils';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
-      <Tab.Screen name={ROUTE.DASHBOARD} component={Dashboard} />
-      <Tab.Screen name={ROUTE.SETTINGS} component={Settings} />
+      <Tab.Screen name={ROUTE.DASHBOARD} component={Dashboard} options={{tabBarLabel:'Home',
+      tabBarIcon:({color, size})=>(
+        <Image source={ICONS.home} style={{height:themeUtils.relativeHeight(4),width:themeUtils.relativeHeight(4)}}/>
+      )}}
+      />
+      <Tab.Screen name={ROUTE.SETTINGS} component={Settings} options={{
+        tabBarLabel:'Settings',
+        tabBarIcon:({color, size})=>(
+        <Image source={ICONS.settings} style={{height:themeUtils.relativeHeight(4),width:themeUtils.relativeHeight(4)}}/>
+
+        )
+      }}/>
     </Tab.Navigator>
   );
 };
