@@ -1,4 +1,4 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Label from '../Label';
 import {COLOR} from '../../../utils/theme/colors';
@@ -7,9 +7,10 @@ import { ICONS } from '../../../utils/images';
 import { QUIZ_LEVELS } from '../../../utils/constant';
 
 const Question = ({question, showLevel, showReview, isTrue, answerComponent, onPress, questionBoxStyle }) => {
-  const level = QUIZ_LEVELS.find((item)=>item.id===question.level_id).name
+  const level = QUIZ_LEVELS.find((item)=>item.id===question.level_id)?.name
+  const Tochable = onPress ? TouchableOpacity : View;
   return (
-    <View style={styles.container} onPress={onPress}>
+    <Tochable style={styles.container} onPress={onPress}>
       <View style={styles.numberBox}>
         <Label  color={COLOR.PRIMARY} bolder>
           {question.id}
@@ -41,7 +42,7 @@ const Question = ({question, showLevel, showReview, isTrue, answerComponent, onP
         </>
         )
         }
-    </View>
+    </Tochable>
   );
 };
 

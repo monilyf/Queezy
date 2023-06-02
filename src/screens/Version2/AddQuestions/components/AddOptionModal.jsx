@@ -1,5 +1,5 @@
 import {Image, Modal, StyleSheet, Switch, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {addOptionModalvalidation} from '../../../../utils/validations';
 import {useFormik} from 'formik';
 import CommonInput from '../../../../components/UI/CommonInput';
@@ -9,7 +9,7 @@ import themeUtils from '../../../../utils/theme/themeUtils';
 import Label from '../../../../components/UI/Label';
 import {ICONS} from '../../../../utils/images';
 
-const AddOptionModal = ({open, onClose, onSave, id}) => {
+const AddOptionModal = ({open, onClose, onSave, current}) => {
   const {
     handleChange,
     handleSubmit,
@@ -18,6 +18,7 @@ const AddOptionModal = ({open, onClose, onSave, id}) => {
     errors,
     setFieldValue,
     resetForm,
+    setValues
   } = useFormik({
     initialValues: {
       option: '',
@@ -25,11 +26,20 @@ const AddOptionModal = ({open, onClose, onSave, id}) => {
     },
     validationSchema: addOptionModalvalidation,
     onSubmit: values => {
+      console.log('values: ', values);
         onSave(values);
-        handleClose();
-   
+        handleClose();   
     },
   });
+  useEffect(() => {
+   if(Object.keys(current).length){
+    setValues({
+      option:current.option,
+      is_correct_answer:current.is_correct_answer
+    })
+   }
+  }, [current])
+  
   const handleClose = () => {
     if(onClose){
         resetForm();
@@ -44,11 +54,15 @@ const AddOptionModal = ({open, onClose, onSave, id}) => {
       onRequestClose={handleClose}>
       <View style={styles.modalContainer}>
         <View style={styles.topView}>
-          <TouchableOpacity style={{alignItems:'flex-end'}} onPress={handleClose}>
+          <TouchableOpacity style={{  alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-between',}} onPress={handleClose}>
+          <Label large bold color={COLOR.PRIMARY}>
+              Add Option
+            </Label>
             <Image source={ICONS.close} style={styles.image} />
           </TouchableOpacity>
           <CommonInput
-            label={'Add Option'}
             placeholder={'Add option'}
             error={touched.option && errors.option}
             value={values.option}
@@ -68,7 +82,7 @@ const AddOptionModal = ({open, onClose, onSave, id}) => {
           </View>
           <CommonButton
             style={{marginTop: themeUtils.relativeHeight(2)}}
-            label={'Save'}
+            label={'Add'}
             labelColor={COLOR.WHITE}
             onPress={handleSubmit}
           />
@@ -84,7 +98,7 @@ const styles = StyleSheet.create({
   topView: {
     width: '95%',
     marginHorizontal: themeUtils.relativeWidth(3),
-    marginTop: themeUtils.relativeWidth(26),
+    // marginTop: themeUtils.relativeWidth(26),
     padding: themeUtils.relativeWidth(5),
     borderRadius: 20,
     backgroundColor: COLOR.WHITE,
@@ -92,6 +106,8 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     alignItems: 'center',
+justifyContent:'center',
+
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   image: {

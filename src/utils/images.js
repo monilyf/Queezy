@@ -21,9 +21,12 @@ export const ICONS = {
   add: require('../assets/icons/add.png'),
   close: require('../assets/icons/close.png'),
   time: require('../assets/icons/time.png'),
+  whiteQuestionMark: require('../assets/icons/whiteQuestionMark.png'),
   questionMark: require('../assets/icons/questionMark.png'),
   puzzle: require('../assets/icons/puzzle.png'),
   check: require('../assets/icons/check.png'),
   remove: require('../assets/icons/remove.png'),
   rightArrow: require('../assets/icons/rightArrow.png'),
+  home: require('../assets/icons/home.png'),
+  settings: require('../assets/icons/settings.png'),
 };

@@ -29,12 +29,12 @@ const Settings = ({navigation}) => {
     );
   };
 
-  const Card = ({title, subTitle, onPress}) => {
+  const Card = ({title, subTitle, icon, onPress}) => {
     return (
       <View style={styles.card}>
         <View style={styles.details}>
           <View style={styles.imageBox}>
-            <Image source={ICONS.email} style={styles.cardIcon} />
+            <Image source={icon} style={styles.cardIcon} />
           </View>
           <View>
             <Label bolder>{title}</Label>
@@ -68,19 +68,19 @@ const Settings = ({navigation}) => {
           ACCOUNT
         </Label>
         <Card
-          icon={ICONS.headphone}
+          icon={ICONS.user}
           title={'Update Profile'}
           subTitle={'Update username, country, etc'}
           onPress={() => {}}
         />
         <Card
-          icon={ICONS.headphone}
+          icon={ICONS.email}
           title={'Change Email Address'}
           subTitle={'madias@yahoo.com'}
           onPress={() => {}}
         />
         <Card
-          icon={ICONS.headphone}
+          icon={ICONS.lock}
           title={'Change Password'}
           subTitle={'Last change 1 year ago'}
           onPress={() => {}}
@@ -94,7 +94,7 @@ const Settings = ({navigation}) => {
           OTHER
         </Label>
         <Card
-          icon={ICONS.headphone}
+          icon={ICONS.questionMark}
           title={'FAQ'}
           subTitle={'Most frequently asked question'}
           onPress={() => {}}

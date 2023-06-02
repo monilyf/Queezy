@@ -8,14 +8,17 @@ import themeUtils from '../../../utils/theme/themeUtils';
 import CommonButton from '../../../components/UI/CommonButton';
 import {ROUTE} from '../../../routes/routes';
 import {QUESTIONS} from '../../../utils/constant';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Question from '../../../components/UI/Question';
+import { setCurrentQuestion } from '../../../redux/reducers/questionSlice';
 
 const QuestionsListing = ({navigation, route}) => {
   const {currentCategory} = useSelector(state => state.category);
   const {questionArray} = useSelector(state => state.questions);
+  const dispatch = useDispatch();
   const renderQuestions = ({item}) => {
-    return <Question question={item} showLevel={true} />;
+    return <Question question={item} showLevel={true} onPress={()=>
+    dispatch(setCurrentQuestion(item))}/>;
   };
   return (
     <MainLayout
@@ -36,12 +39,17 @@ const QuestionsListing = ({navigation, route}) => {
             )}
           </View>
           <View style={styles.questionContainer}>
+           
+             {questionArray.length > 0 ? (
             <FlatList
-              renderItem={renderQuestions}
               data={questionArray}
               keyExtractor={item => item.id}
+              renderItem={renderQuestions}
               showsVerticalScrollIndicator={false}
             />
+          ) : (
+            <Label>Questions will be listed here</Label>
+          )}
           </View>
         </View>
         <CommonButton
@@ -74,10 +82,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   questionContainer: {
-    backgroundColor: COLOR.LIGHT_GRAY,
-    marginVertical: themeUtils.relativeHeight(1),
-    borderRadius: 20,
-    padding: themeUtils.relativeHeight(1),
     height: themeUtils.relativeHeight(65),
+    borderRadius: 20,
+    backgroundColor: COLOR.LIGHT_GRAY,
+    padding: themeUtils.relativeHeight(2),
+    marginVertical: themeUtils.relativeHeight(1),
   },
 });

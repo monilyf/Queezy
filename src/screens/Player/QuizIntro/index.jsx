@@ -31,7 +31,7 @@ const QuizInto = ({navigation}) => {
         <View style={styles.questionPointContainer}>
           <View style={styles.imageLabelContainer}>
             <View style={[styles.iconBox, {backgroundColor: COLOR.PRIMARY}]}>
-              <Image source={ICONS.questionMark} style={styles.icon} />
+              <Image source={ICONS.whiteQuestionMark} style={styles.icon} />
             </View>
             <Label
               bolder

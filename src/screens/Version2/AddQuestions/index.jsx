@@ -10,14 +10,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {ROUTE} from '../../../routes/routes';
 import Label from '../../../components/UI/Label';
 import Question from '../../../components/UI/Question';
-import { addQuestion } from '../../../redux/reducers/questionSlice';
+import {
+  addQuestion,
+  setCurrentQuestion,
+} from '../../../redux/reducers/questionSlice';
 
 const AddQuestions = ({navigation, route}) => {
   const {currentCategory} = useSelector(state => state.category);
 
-  const [showQuestionModal, setQuestionModal] = useState({isOpen:false,currentQuestion:''});
+  const [showQuestionModal, setQuestionModal] = useState(false);
   // const [questionArray, setQuestionArray] = useState([]);
-  const {questionArray} = useSelector(state => state.questions);
+  const {newQuestionArray} = useSelector(state => state.questions);
 
   const dispatch = useDispatch();
   const handleQuestion = value => {
@@ -25,16 +28,30 @@ const AddQuestions = ({navigation, route}) => {
     // let questionArrayClone = [...questionArray];
     // questionArrayClone.push({...value});
     // setQuestionArray(questionArrayClone);
-    dispatch(addQuestion({...value}))
+    dispatch(addQuestion({...value}));
   };
   const handleSubmit = () => {
-    const payload = {category_id: currentCategory.id, question_array:questionArray};
-    console.log('payload: ', questionArray);
+    // const payload = {
+    //   category_id: currentCategory.id,
+    //   question_array: questionArray,
+    // };
+    // console.log('payload: ', questionArray);
     //api call
+    dispatch(saveAllQuestions())
     navigation.navigate(ROUTE.DASHBOARD);
   };
   const renderQuestions = ({item}) => {
-    return <Question question={item} key={item.id} onPress={()=>setQuestionModal({isOpen:true,currentQuestion:item})}/>;
+    return (
+      <Question
+        question={item}
+        key={item.id}
+        onPress={() => handleCurrentQuestionClick(item)}
+      />
+    );
+  };
+  const handleCurrentQuestionClick = data => {
+    dispatch(setCurrentQuestion(data));
+    setQuestionModal(true);
   };
   return (
     <MainLayout
@@ -44,12 +61,12 @@ const AddQuestions = ({navigation, route}) => {
         <CommonButton
           label={`Add Question`}
           labelColor={COLOR.WHITE}
-          onPress={() => setQuestionModal({isOpen:true,currentQuestion:''})}
+          onPress={() => setQuestionModal(true)}
         />
         <View style={styles.questionContainer}>
-          {questionArray.length > 0 ? (
+          {newQuestionArray.length > 0 ? (
             <FlatList
-              data={questionArray}
+              data={newQuestionArray}
               keyExtractor={item => item.id}
               renderItem={renderQuestions}
             />
@@ -57,20 +74,29 @@ const AddQuestions = ({navigation, route}) => {
             <Label>Questions will be listed here</Label>
           )}
         </View>
-        {questionArray.length > 0 && (
-          <CommonButton
-            label={`Save all Questions`}
-            labelColor={COLOR.WHITE}
-            onPress={handleSubmit}
-          />
+        {newQuestionArray.length > 0 && (
+          <>
+            <Label
+              xsmall
+              color={COLOR.GRAY}
+              align={'center'}
+              mb={themeUtils.relativeHeight(1)}
+             >
+              Verify all questions and their's option before saving
+            </Label>
+            <CommonButton
+              label={`Save all Questions`}
+              labelColor={COLOR.WHITE}
+              onPress={handleSubmit}
+            />
+          </>
         )}
       </CommonCard>
 
-      {showQuestionModal.isOpen && (
+      {showQuestionModal && (
         <AddQuestionModal
-          open={showQuestionModal.isOpen}
-          currentQuestion={showQuestionModal.currentQuestion}
-          onClose={() => setQuestionModal({isOpen:false,currentQuestion:''})}
+          open={showQuestionModal}
+          onClose={() => setQuestionModal(false)}
           onSave={value => handleQuestion(value)}
         />
       )}
@@ -83,13 +109,13 @@ export default AddQuestions;
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
-    justifyContent:'space-evenly'
+    justifyContent: 'space-evenly',
   },
   questionContainer: {
     height: themeUtils.relativeHeight(65),
     borderRadius: 20,
     backgroundColor: COLOR.LIGHT_GRAY,
     padding: themeUtils.relativeHeight(2),
-    marginVertical: themeUtils.relativeHeight(2),
+    marginVertical: themeUtils.relativeHeight(1),
   },
 });
