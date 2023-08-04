@@ -14,7 +14,6 @@ const App = () => {
       <PersistGate persistor={persistor}>
         {/* <ThemeProvider defaultTheme={{colors: colors.light, typography}}> */}
           <RootNavigator />
-          
         {/* </ThemeProvider> */}
       </PersistGate>
     </Provider>
